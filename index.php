@@ -11,7 +11,7 @@ switch ($page) {
         break;
 
     case 'product':
-        include "Client/View/Pages/Product.php";
+        include "Client/View/Pages/product.php";
         break;
     case 'contact':
         include "Client/View/Pages/contact.php";
