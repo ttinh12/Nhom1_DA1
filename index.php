@@ -16,6 +16,15 @@ switch ($page) {
     case 'contact':
         include "Client/View/Pages/contact.php";
         break;
+    case 'about':
+        include "Client/View/Pages/about.php";
+        break;
+    case 'login':
+        include "Client/View/Pages/Auth/login.php";
+        break;
+    case 'register':
+        include "Client/View/Pages/Auth/register.php";
+        break;
 }
 
 // gọi footer

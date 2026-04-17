@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="col-md-6 order-1 align-self-end">
-            <img src="public/assets/images/model_3.png" alt="Image" class="img-fluid">
+            <img src="https://bizweb.dktcdn.net/100/403/511/themes/786953/assets/slide_img_1.jpg?1775096171443">
           </div>
         </div>
       </div>
