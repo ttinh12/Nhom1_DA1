@@ -9,6 +9,7 @@ include 'View/layouts/sidebar.php';
 <div class="layout-page">
 
     <?php
+    // 4. Navbar: Thanh tìm kiếm và User profile nằm trên cùng của layout-page
     include 'View/layouts/navbar.php';
     ?>
 
@@ -17,25 +18,8 @@ include 'View/layouts/sidebar.php';
         <div class="container-xxl flex-grow-1 container-p-y">
 
             <?php
-            switch ($action) {
-                case 'dashboard':
-                    include 'View/dashboard.php';
-                    break;
-                case 'products':
-                    include 'View/products.php';
-                    break;
-                case 'categories':
-                    include 'View/categories.php';
-                    break;
-                case 'orders':
-                    include 'View/orders.php';
-                    break;
-                case 'users':
-                    include 'View/users.php';
-                    break;
-                default:
-                    include 'View/dashboard.php';
-            }
+            // ĐÂY LÀ NƠI BẠN GẮN FILE DASHBOARD
+            include 'View/dashboard.php';
             ?>
 
         </div>
