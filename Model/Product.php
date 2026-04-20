@@ -9,6 +9,11 @@ class Product {
         $this->_connect = $connect;
     }
 
+    /**
+     * Hàm này dùng để lấy tất cả các sản phẩm từ bảng product
+     * @return array trả về một mảng chứa thông tin của tất cả các sản phẩm
+     */
+
     public function getAll()
     {
         $sql = "SELECT * FROM {$this->table}";
@@ -16,6 +21,22 @@ class Product {
         $sth->execute();
 
         return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Hàm này dùng để lấy thông tin của một sản phẩm dựa vào id của nó
+     * @param int $id id của sản phẩm cần lấy thông tin
+     * @return array trả về một mảng chứa thông tin của sản phẩm nếu tìm thấy, ngược lại trả về false
+     * 
+    */
+
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE id = ?";
+        $sth = $this->_connect->prepare($sql);
+        $sth->execute([$id]);
+
+        return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
 
