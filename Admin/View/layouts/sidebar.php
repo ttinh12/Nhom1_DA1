@@ -60,12 +60,12 @@ $admin_url = "/admin/index.php";
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="auth-login-basic.html" class="menu-link" target="_blank">
+                    <a href="<?='?act=category' ?>" class="menu-link" target="_blank">
                         <div data-i18n="Basic">Xem danh mục</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="auth-register-basic.html" class="menu-link" target="_blank">
+                    <a href="<?='?act=category-create' ?>" class="menu-link" target="_blank">
                         <div data-i18n="Basic">Thêm danh mục</div>
                     </a>
                 </li>
