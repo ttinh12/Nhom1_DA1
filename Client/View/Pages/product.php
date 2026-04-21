@@ -92,15 +92,17 @@
 
                 <div class="mt-3 d-flex gap-2">
 
-                  <form action="index.php?act=addtocart" method="post" class="w-50">
-                    <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
+                  <!-- ADD TO CART -->
+                  <form action="index.php?page=addtocart" method="post" class="w-50">
+                    <input type="hidden" name="product_id" value="<?= $item['id']; ?>">
                     <button type="submit" class="btn btn-outline-dark btn-sm w-100">
                       Thêm giỏ
                     </button>
                   </form>
 
-                  <form action="index.php?act=buynow" method="post" class="w-50">
-                    <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
+                  <!-- BUY NOW -->
+                  <form action="index.php?page=buynow" method="post" class="w-50">
+                    <input type="hidden" name="product_id" value="<?= $item['id']; ?>">
                     <button type="submit" class="btn btn-dark btn-sm w-100">
                       Mua ngay
                     </button>

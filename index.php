@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 
 $page = $_GET['page'] ?? 'home';
@@ -8,7 +9,6 @@ require_once __DIR__ . "/Model/Database.php";
 $db = new Database();
 $connect = $db->connect();
 
-
 include "Client/View/Layouts/header.php";
 
 if ($page == 'home' || $page == 'product') {
@@ -17,7 +17,6 @@ if ($page == 'home' || $page == 'product') {
     $product = new Product($connect);
     $products = $product->getAll();
 }
-
 
 require_once __DIR__ . "/Client/Controller/AuthController.php";
 $auth = new AuthController($connect);
@@ -33,16 +32,12 @@ switch ($page) {
         include "Client/View/Pages/product.php";
         break;
 
-    case 'contact':
-        include "Client/View/Pages/contact.php";
-        break;
-
-    case 'about':
-        include "Client/View/Pages/about.php";
-        break;
-
     case 'cart':
         include "Client/View/Pages/cart.php";
+        break;
+
+    case 'checkout':
+        include "Client/View/Pages/checkout.php";
         break;
 
     case 'addtocart':
@@ -62,6 +57,16 @@ switch ($page) {
     case 'logout':
         $auth->logout();
         break;
+    case 'deletecart':
+
+        $id = $_GET['id'] ?? 0;
+
+        if ($id && isset($_SESSION['cart'][$id])) {
+            unset($_SESSION['cart'][$id]);
+        }
+
+        header("Location: index.php?page=cart");
+        exit;
 
     default:
         include "Client/View/Pages/home.php";

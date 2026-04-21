@@ -1,143 +1,119 @@
 <?php
-require_once "Model/Cart.php";
+// LẤY GIỎ HÀNG TỪ SESSION 
+$cart = $_SESSION['cart'] ?? [];
 
-$cartModel = new Cart($connect);
-
-$order_id = $_SESSION['order_id'] ?? 0;
-
-$list = $cartModel->getCartByOrder($order_id);
-$total = $cartModel->getTotal($order_id);
+// BIẾN LƯU TỔNG TIỀN
+$total = 0;
 ?>
 
 <div class="site-wrap">
+
+    <!-- BREADCRUMB -->
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong
-                        class="text-black">Cart</strong></div>
+                <div class="col-md-12 mb-0">
+                    <a href="index.php?page=home">Trang chủ</a>
+                    <span class="mx-2">/</span>
+                    <strong class="text-black">Giỏ hàng</strong>
+                </div>
             </div>
         </div>
     </div>
 
+
+    <!-- DANH SÁCH GIỎ HÀNG  -->
     <div class="site-section">
         <div class="container">
+
             <div class="row mb-5">
-                <form class="col-md-12" method="post">
-                    <div class="site-blocks-table">
-    <?php if (empty($list)): ?>
-        <p>Chưa có sản phẩm trong giỏ</p>
-    <?php else: ?>
+                <div class="col-md-12">
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Hình ảnh</th>
-                <th>Tên</th>
-                <th>Giá</th>
-                <th>SL</th>
-                <th>Tổng</th>
-                <th>Xóa</th>
-            </tr>
-        </thead>
-        <tbody>
+                    <?php if (empty($cart)): ?>
+                        <p>Chưa có sản phẩm trong giỏ</p>
+                    <?php else: ?>
 
-                                <?php foreach ($list as $item): ?>
+                        <table class="table table-bordered">
+
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <img src="images/cloth_1.jpg" class="img-fluid">
-                                    </td>
-
-                                    <td><?= $item['title'] ?></td>
-
-                                    <td><?= number_format($item['price']) ?> đ</td>
-
-                                    <td>
-                                        <form action="index.php?page=updatecart" method="post" style="display:flex; gap:5px;">
-                                            <input type="hidden" name="id" value="<?= $item['id'] ?>">
-
-                                            <button name="action" value="minus" class="btn btn-outline-primary">-</button>
-
-                                            <input type="number" name="quantity" value="<?= $item['quantity'] ?>" 
-                                                min="1" style="width:60px;" onchange="this.form.submit()">
-
-                                            <button name="action" value="plus" class="btn btn-outline-primary">+</button>
-                                        </form>
-                                    </td>
-
-                                    <td><?= number_format($item['price'] * $item['quantity']) ?> đ</td>
-
-                                    <td>
-                                        <a href="index.php?page=deletecart&id=<?= $item['id'] ?>" 
-                                        class="btn btn-danger btn-sm">X</a>
-                                    </td>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên</th>
+                                    <th>Giá</th>
+                                    <th>SL</th>
+                                    <th>Tổng</th>
+                                    <th>Xóa</th> <!-- ✅ THÊM -->
                                 </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <?php foreach ($cart as $item): ?>
+
+                                    <?php
+                                    $sum = $item['price'] * $item['quantity'];
+                                    $total += $sum;
+                                    ?>
+
+                                    <tr>
+
+                                        <td>
+                                            <img src="public/assets/images/<?= $item['image'] ?>" width="80">
+                                        </td>
+
+                                        <td><?= $item['name'] ?></td>
+
+                                        <td><?= number_format($item['price']) ?> đ</td>
+
+                                        <td><?= $item['quantity'] ?></td>
+
+                                        <td><?= number_format($sum) ?> đ</td>
+
+                                        <!--  NÚT XÓA -->
+                                        <td>
+                                            <a href="index.php?page=deletecart&id=<?= $item['id'] ?>"
+                                                onclick="return confirm('Bạn có chắc muốn xóa?')" class="btn-delete">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
                                 <?php endforeach; ?>
 
                             </tbody>
                         </table>
 
-                        <?php endif; ?> <!-- 🔥 THIẾU CÁI NÀY -->
-                    </div>
-                </form>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row mb-5">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="text-black h4" for="coupon">Coupon</label>
-                            <p>Enter your coupon code if you have one.</p>
-                        </div>
-                        <div class="col-md-8 mb-3 mb-md-0">
-                            <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 pl-5">
-                    <div class="row justify-content-end">
-                        <div class="col-md-7">
-                            <div class="row">
-                                <div class="col-md-12 text-right border-bottom mb-5">
-                                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <span class="text-black">Subtotal</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-md-6">
-                                    <span class="text-black">Total</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
-                                </div>
-                            </div>
+                    <?php endif; ?>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-lg btn-block"
-                                        onclick="window.location='checkout.html'">Proceed To Checkout</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+
+
+            <!--TỔNG TIỀN + NÚT  -->
+            <div class="row">
+
+                <div class="col-md-6">
+                    <a href="index.php?page=product" class="btn btn-outline-primary btn-sm">
+                        Tiếp tục mua hàng
+                    </a>
+                </div>
+
+                <div class="col-md-6 text-right">
+                    <?php if (!empty($cart)): ?>
+
+                        <h4>Tổng tiền: <strong><?= number_format($total) ?> đ</strong></h4>
+
+                        <a href="index.php?page=checkout" class="btn btn-primary">
+                            Thanh toán
+                        </a>
+
+                    <?php endif; ?>
+                </div>
+
+            </div>
+
         </div>
     </div>
+
 </div>

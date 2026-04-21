@@ -16,6 +16,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="public/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/assets/css/style.css">
     <link rel="stylesheet" href="public/assets/fonts/icomoon/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -53,7 +54,6 @@ if (session_status() === PHP_SESSION_NONE) {
                                 </li>
 
                                 <li><a href="index.php?page=product">Cửa hàng</a></li>
-                                <li><a href="#">Danh mục</a></li>
                                 <li><a href="index.php?page=about">Giới thiệu</a></li>
                                 <li><a href="index.php?page=contact">Liên hệ</a></li>
 
