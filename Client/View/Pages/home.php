@@ -76,7 +76,7 @@
               <div class="mt-3 d-flex gap-2">
 
                 <!-- Thêm giỏ hàng -->
-                <form action="index.php?act=addtocart" method="post">
+                <form action="index.php?page=addtocart" method="post">
                   <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
                   <button type="submit" class="btn btn-outline-dark btn-sm w-100">
                     Thêm giỏ

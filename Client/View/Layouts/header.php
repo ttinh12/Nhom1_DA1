@@ -75,7 +75,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </a>
 
                         <!-- CART -->
-                        <a href="#" class="icons-btn d-inline-block bag">
+                        <a href="index.php?page=cart" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             <span class="number">2</span>
                         </a>

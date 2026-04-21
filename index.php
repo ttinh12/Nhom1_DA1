@@ -41,6 +41,16 @@ switch ($page) {
         include "Client/View/Pages/about.php";
         break;
 
+    case 'cart':
+        include "Client/View/Pages/cart.php";
+        break;
+
+    case 'addtocart':
+        require_once __DIR__ . "/Client/Controller/ProductController.php";
+        $controller = new ProductController();
+        $controller->addToCart();
+        break;
+
     case 'login':
         $auth->login();
         break;

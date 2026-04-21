@@ -1,7 +1,7 @@
 <?php
 class Category
 {
-    private $table = 'category';
+    private $table = 'categories';
     private $_connect;
 
     public function __construct($connect)
@@ -22,7 +22,7 @@ class Category
         $sql = "SELECT * FROM $this->table WHERE id = :id";
         $stmt = $this->_connect->prepare($sql);
         $stmt->execute(['id'=> $id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC); // ✅ sửa ở đây
     }
 
     /**
