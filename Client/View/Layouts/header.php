@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -29,11 +35,11 @@
 
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">
-                    
+
                     <!-- LOGO -->
                     <div class="logo">
                         <div class="site-logo">
-                            <a href="index.php" class="js-logo-clone">ShopMax</a>
+                            <a href="index.php?page=home" class="js-logo-clone">ShopMax</a>
                         </div>
                     </div>
 
@@ -42,46 +48,59 @@
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
 
-                                <li class="has-children active">
-                                    <a href="index.php">Home</a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">Menu One</a></li>
-                                        <li><a href="#">Menu Two</a></li>
-                                        <li><a href="#">Menu Three</a></li>
-                                        <li class="has-children">
-                                            <a href="#">Sub Menu</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Menu One</a></li>
-                                                <li><a href="#">Menu Two</a></li>
-                                                <li><a href="#">Menu Three</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                <li class="active">
+                                    <a href="index.php?page=home">Trang chủ</a>
                                 </li>
 
-                                <li><a href="shop.html">Shop</a></li>
-                                <li><a href="?page=blog">blog</a></li>
-                                <li><a href="#">New Arrivals</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="index.php?page=product">Cửa hàng</a></li>
+                                <li><a href="#">Danh mục</a></li>
+                                <li><a href="index.php?page=about">Giới thiệu</a></li>
+                                <li><a href="index.php?page=contact">Liên hệ</a></li>
+
                             </ul>
                         </nav>
                     </div>
 
                     <!-- ICON -->
-                    <div class="icons">
-                        <a href="#" class="icons-btn d-inline-block js-search-open"><span
-                                class="icon-search"></span></a>
-                        <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
-                        <a href="?page=cart" class="icons-btn d-inline-block bag">
+                    <div class="icons d-flex align-items-center gap-3">
+
+                        <!-- SEARCH -->
+                        <a href="#" class="icons-btn d-inline-block js-search-open">
+                            <span class="icon-search"></span>
+                        </a>
+
+                        <!-- HEART -->
+                        <a href="#" class="icons-btn d-inline-block">
+                            <span class="icon-heart-o"></span>
+                        </a>
+
+                        <!-- CART -->
+                        <a href="#" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             <span class="number">2</span>
                         </a>
 
-                        <!-- LOGIN -->
-                        <a href="index.php?page=login">
-                            <span class="icon-user"></span> Đăng nhập
-                        </a>
+                        <!-- USER -->
+                        <?php if (isset($_SESSION['user'])): ?>
 
+                            <a href="#" class="icons-btn d-inline-block">
+                                <span class="icon-user"></span>
+                                <?= htmlspecialchars($_SESSION['user']['name']) ?>
+                            </a>
+
+                            <a href="index.php?page=logout" class="icons-btn d-inline-block">
+                                Đăng xuất
+                            </a>
+
+                        <?php else: ?>
+
+                            <a href="index.php?page=login" class="icons-btn d-inline-block">
+                                <span class="icon-user"></span> Đăng nhập
+                            </a>
+
+                        <?php endif; ?>
+
+                        <!-- MOBILE MENU -->
                         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
                             <span class="icon-menu"></span>
                         </a>

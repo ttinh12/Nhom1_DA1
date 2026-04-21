@@ -1,28 +1,30 @@
 <?php
+session_start();
+
 $page = $_GET['page'] ?? 'home';
 
-// Các trang có layout riêng
-$standalone_pages = ['blog', 'blog-detail', 'cart'];
+require_once __DIR__ . "/Model/Database.php";
 
-if (!in_array($page, $standalone_pages)) {
-    // gọi header
-    include "Client/View/Layouts/header.php";
-}
+$db = new Database();
+$connect = $db->connect();
 
-// load data cho cả home + product
+
+include "Client/View/Layouts/header.php";
+
 if ($page == 'home' || $page == 'product') {
-    require_once "Model/Database.php";
-    require_once "Model/Product.php";
-
-    $db = new Database();
-    $connect = $db->connect();
+    require_once __DIR__ . "/Model/Product.php";
 
     $product = new Product($connect);
     $products = $product->getAll();
 }
 
-// điều hướng
+
+require_once __DIR__ . "/Client/Controller/AuthController.php";
+$auth = new AuthController($connect);
+
+// ===== ROUTE =====
 switch ($page) {
+
     case 'home':
         include "Client/View/Pages/home.php";
         break;
@@ -40,33 +42,20 @@ switch ($page) {
         break;
 
     case 'login':
-        include "Client/View/Pages/Auth/login.php";
+        $auth->login();
         break;
 
     case 'register':
-        include "Client/View/Pages/Auth/register.php";
+        $auth->register();
+        break;
+
+    case 'logout':
+        $auth->logout();
+        break;
+
+    default:
+        include "Client/View/Pages/home.php";
         break;
 }
 
-if (!in_array($page, $standalone_pages)) {
-    // gọi footer
-    include "Client/View/Layouts/footer.php";
-}
-
-
-
-
-
-// require_once "Model/Database.php";
-// require_once "Model/Product.php";
-
-// $db = new Database();
-// $connection = $db->connect();
-
-// $product = new Product($connection); // dùng để test
-
-// $danhSach = $product->getAll('auto');
-
-// foreach ($danhSach as $value){
-//     echo $value['title'] . "<hr>";
-// }
+include "Client/View/Layouts/footer.php";

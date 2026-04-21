@@ -189,16 +189,29 @@ a:hover {
   text-decoration: none;
 }
 
-.icons-btn {
-  display: inline-block;
-  text-align: center;
+/* container icons */
+.icons {
+  display: flex;
+  align-items: center;
 }
 
+/* mỗi icon */
+.icons-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 12px; /* khoảng cách đều */
+}
+
+/* icon bên trong */
 .icons-btn span {
-  display: block;
-  height: 40px;
-  width: 40px;
-  line-height: 40px;
+  display: inline-block;
+  font-size: 18px;
+}
+
+/* text user */
+.icons-btn {
+  white-space: nowrap;
 }
 
 @media (max-width: 991.98px) {
