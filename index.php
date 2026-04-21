@@ -1,8 +1,13 @@
 <?php
 $page = $_GET['page'] ?? 'home';
 
-// gọi header
-include "Client/View/Layouts/header.php";
+// Các trang có layout riêng
+$standalone_pages = ['blog', 'blog-detail', 'cart'];
+
+if (!in_array($page, $standalone_pages)) {
+    // gọi header
+    include "Client/View/Layouts/header.php";
+}
 
 // load data cho cả home + product
 if ($page == 'home' || $page == 'product') {
@@ -43,5 +48,25 @@ switch ($page) {
         break;
 }
 
-// footer
-include "Client/View/Layouts/footer.php";
+if (!in_array($page, $standalone_pages)) {
+    // gọi footer
+    include "Client/View/Layouts/footer.php";
+}
+
+
+
+
+
+// require_once "Model/Database.php";
+// require_once "Model/Product.php";
+
+// $db = new Database();
+// $connection = $db->connect();
+
+// $product = new Product($connection); // dùng để test
+
+// $danhSach = $product->getAll('auto');
+
+// foreach ($danhSach as $value){
+//     echo $value['title'] . "<hr>";
+// }

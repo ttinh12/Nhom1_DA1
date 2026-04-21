@@ -33,7 +33,7 @@
                     <!-- LOGO -->
                     <div class="logo">
                         <div class="site-logo">
-                            <a href="index.html" class="js-logo-clone">ShopMax</a>
+                            <a href="index.php" class="js-logo-clone">ShopMax</a>
                         </div>
                     </div>
 
@@ -43,30 +43,36 @@
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
 
                                 <li class="has-children active">
-                                    <a href="<?= '?page=home' ?>">Trang chủ</a>
+                                    <a href="index.php">Home</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Menu One</a></li>
+                                        <li><a href="#">Menu Two</a></li>
+                                        <li><a href="#">Menu Three</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Sub Menu</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Menu One</a></li>
+                                                <li><a href="#">Menu Two</a></li>
+                                                <li><a href="#">Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </li>
 
-                                <li><a href="<?= '?page=product' ?>">Cửa hàng</a></li>
-                                <li><a href="#">Danh mục</a></li>
-                                <li><a href="index.php?page=about">Giới thiệu</a></li>
-                                <li><a href="<?= '?page=contact' ?>">Liên hệ</a></li>
-
+                                <li><a href="shop.html">Shop</a></li>
+                                <li><a href="?page=blog">blog</a></li>
+                                <li><a href="#">New Arrivals</a></li>
+                                <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
 
                     <!-- ICON -->
                     <div class="icons">
-
-                        <a href="#" class="icons-btn d-inline-block js-search-open">
-                            <span class="icon-search"></span>
-                        </a>
-
-                        <a href="#" class="icons-btn d-inline-block">
-                            <span class="icon-heart-o"></span>
-                        </a>
-
-                        <a href="cart.html" class="icons-btn d-inline-block bag">
+                        <a href="#" class="icons-btn d-inline-block js-search-open"><span
+                                class="icon-search"></span></a>
+                        <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+                        <a href="?page=cart" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             <span class="number">2</span>
                         </a>
