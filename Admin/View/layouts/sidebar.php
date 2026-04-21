@@ -74,12 +74,12 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                    <a href="<?='?act=products' ?>" class="menu-link">
                         <div data-i18n="Account">Xem sản phẩm</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
+                    <a href="<?='?act=product_create' ?>" class="menu-link">
                         <div data-i18n="Notifications">Thêm sản phẩm</div>
                     </a>
                 </li>
