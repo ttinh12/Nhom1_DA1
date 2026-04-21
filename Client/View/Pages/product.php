@@ -39,7 +39,7 @@
               <h2 class="text-black h5">Tất cả sản phẩm</h2>
             </div>
             <div class="d-flex">
-              
+
               <!-- Lọc -->
               <div class="dropdown mr-1 ml-md-auto">
                 <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" data-toggle="dropdown">
@@ -48,7 +48,7 @@
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Nam</a>
                   <a class="dropdown-item" href="#">Nữ</a>
-                  <a class="dropdown-item" href="#">Trẻ em</a>
+                  <a class="dropdown-item" href="#">Giày Dép</a>
                 </div>
               </div>
 
@@ -143,7 +143,7 @@
           <ul class="list-unstyled mb-0">
             <li><a href="#">Nam</a></li>
             <li><a href="#">Nữ</a></li>
-            <li><a href="#">Trẻ em</a></li>
+            <li><a href="#">Giày Dép</a></li>
           </ul>
         </div>
 
@@ -180,19 +180,19 @@
       <div class="col-lg-8">
         <div class="product-item sm-height full-height bg-gray">
           <a href="#" class="product-category">Thời trang nữ <span>25 sản phẩm</span></a>
-          <img src="images/model_4.png" class="img-fluid">
+          <img src="public/assets/images/Banner4.jpg" class="img-fluid">
         </div>
       </div>
 
       <div class="col-lg-4">
         <div class="product-item sm-height bg-gray mb-4">
-          <a href="#" class="product-category">Thời trang nam <span>25 sản phẩm</span></a>
-          <img src="images/model_5.png" class="img-fluid">
+          <a href="#" class="product-category">Váy <span>25 sản phẩm</span></a>
+          <img src="public/assets/images/Banner5.jpg" class="img-fluid">
         </div>
 
         <div class="product-item sm-height bg-gray">
           <a href="#" class="product-category">Giày dép <span>25 sản phẩm</span></a>
-          <img src="images/model_6.png" class="img-fluid">
+          <img src="public/assets/images/Banner6.jpg" class="img-fluid">
         </div>
       </div>
     </div>

@@ -41,7 +41,7 @@
           <a href="#" class="product-category">
             Giày <span>25 sản phẩm</span>
           </a>
-          <img src="public/assets/images/Banner3.jpg" alt="Image" class="img-fluid">
+          <img src="public/assets/images/Banner6.jpg" alt="Image" class="img-fluid">
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
         </div>
       </div>
       <div class="col-md-6 order-1 align-self-end">
-        <img src="images/model_6.png" alt="Image" class="img-fluid">
+        <img src="public/assets/images/Banner6.jpg" alt="Image" class="img-fluid">
       </div>
     </div>
   </div>

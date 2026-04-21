@@ -200,7 +200,8 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-left: 12px; /* khoảng cách đều */
+  margin-left: 12px;
+  /* khoảng cách đều */
 }
 
 /* icon bên trong */
@@ -688,8 +689,10 @@ a:hover {
 
 .site-blocks-cover,
 .site-blocks-cover .row {
-  min-height: 600px;
-  height: calc(100vh - 174px);
+  min-height: 500px;
+  height: auto;
+  display: flex;
+  align-items: center;
 }
 
 .site-blocks-cover.inner-page,
@@ -731,9 +734,16 @@ a:hover {
   line-height: 1.5;
 }
 
-.site-blocks-cover .site-block-cover-content {
-  margin-top: 20%;
-  text-align: center;
+.site-blocks-cover h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.site-blocks-cover h2 {
+  color: #ee4266;
+  font-size: 13px;
+  letter-spacing: 2px;
 }
 
 @media (min-width: 768px) {
