@@ -36,7 +36,6 @@ class ProductController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
         // chặn chưa đăng nhập
         if (!isset($_SESSION['user'])) {
             header("Location: index.php?page=login");

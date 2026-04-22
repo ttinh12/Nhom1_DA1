@@ -5,7 +5,7 @@
 
 <div class="card mb-4">
     <h5 class="card-header">
-        Chi tiết sản phẩm: 
+        chi tiết sản phẩm: 
         <span class="text-primary"><?= $product['name'] ?></span>
     </h5>
 
@@ -14,12 +14,15 @@
 
             <div class="col-md-4 text-center border-end">
 
-                <?php if (!empty($product['images'])): ?>
-                    <img src="../public/uploads/<?= $product['images'] ?>"
-                        class="img-fluid rounded">
+                <?php
+                $imagePath = "../public/uploads/" . $product['images'];
+                $imageFile = __DIR__ . "/../../../public/uploads/" . $product['images'];
+                ?>
+
+                <?php if (!empty($product['images']) && file_exists($imageFile)): ?>
+                    <img src="<?= $imagePath ?>" class="img-fluid rounded">
                 <?php else: ?>
-                    <img src="../public/uploads/default.png"
-                        class="img-fluid rounded">
+                    <img src="../public/uploads/default.png" class="img-fluid rounded">
                 <?php endif; ?>
 
             </div>
@@ -29,25 +32,25 @@
                 <table class="table table-borderless">
 
                     <tr>
-                        <th style="width:150px;">Tiêu đề</th>
+                        <th style="width:150px;">tiêu đề</th>
                         <td><?= $product['title'] ?></td>
                     </tr>
 
                     <tr>
-                        <th>Giá</th>
+                        <th>giá</th>
                         <td class="text-danger">
                             <?= number_format($product['base_price'],0,',','.') ?> đ
                         </td>
                     </tr>
 
                     <tr>
-                        <th>Mô tả</th>
+                        <th>mô tả</th>
                         <td><?= nl2br($product['description']) ?></td>
                     </tr>
 
                     <tr>
-                        <th>Ngày tạo</th>
-                        <td><?= date('d/m/Y H:i', strtotime($product['created_at'])) ?></td>
+                        <th>ngày tạo</th>
+                        <td><?= !empty($product['created_at']) ? date('d/m/Y H:i', strtotime($product['created_at'])) : '' ?></td>
                     </tr>
 
                 </table>
@@ -59,18 +62,18 @@
 </div>
 
 <div class="card">
-    <h5 class="card-header">Danh sách biến thể</h5>
+    <h5 class="card-header">danh sách biến thể</h5>
 
     <div class="table-responsive">
         <table class="table">
 
             <thead>
                 <tr>
-                    <th>Ảnh</th>
-                    <th>SKU</th>
-                    <th>Giá</th>
-                    <th>Kho</th>
-                    <th>Ngày tạo</th>
+                    <th>ảnh</th>
+                    <th>sku</th>
+                    <th>giá</th>
+                    <th>kho</th>
+                    <th>ngày tạo</th>
                 </tr>
             </thead>
 
@@ -79,13 +82,18 @@
                 <?php if (!empty($variants)): ?>
                     <?php foreach ($variants as $v): ?>
 
+                        <?php
+                        $vImagePath = "../public/uploads/" . $v['image'];
+                        $vImageFile = __DIR__ . "/../../../public/uploads/" . $v['image'];
+                        ?>
+
                         <tr>
 
                             <td>
-                                <?php if (!empty($v['image'])): ?>
-                                    <img src="../public/uploads/<?= $v['image'] ?>" width="45">
+                                <?php if (!empty($v['image']) && file_exists($vImageFile)): ?>
+                                    <img src="<?= $vImagePath ?>" width="45" height="45" style="object-fit:cover">
                                 <?php else: ?>
-                                    <span>Không có</span>
+                                    <img src="../public/uploads/default.png" width="45" height="45">
                                 <?php endif; ?>
                             </td>
 
@@ -98,7 +106,7 @@
                             <td><?= $v['stock'] ?></td>
 
                             <td>
-                                <?= isset($v['created_at']) ? date('d/m/Y', strtotime($v['created_at'])) : '' ?>
+                                <?= !empty($v['created_at']) ? date('d/m/Y', strtotime($v['created_at'])) : '' ?>
                             </td>
 
                         </tr>
@@ -108,7 +116,7 @@
 
                     <tr>
                         <td colspan="5" class="text-center">
-                            Chưa có biến thể
+                            chưa có biến thể
                         </td>
                     </tr>
 
@@ -122,6 +130,6 @@
 
 <div class="mt-4">
     <a href="index.php?act=products" class="btn btn-secondary">
-        Quay lại
+        quay lại
     </a>
 </div>

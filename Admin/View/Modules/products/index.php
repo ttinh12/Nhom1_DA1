@@ -1,10 +1,14 @@
+<?php
+$base_url = "/duan1/Admin/public/assets/uploads/";
+?>
+
 <div class="card">
     <div class="d-flex align-items-center justify-content-between">
         <h5 class="card-header">Danh sách sản phẩm</h5>
 
         <div class="px-4">
             <a href="index.php?act=add-product" class="btn btn-primary">
-                <i class="bx bx-plus me-1"></i> Thêm sản phẩm
+                thêm sản phẩm
             </a>
         </div>
     </div>
@@ -15,13 +19,13 @@
 
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Ảnh</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Danh mục</th>
-                        <th>Giá</th>
-                        <th>Ngày tạo</th>
-                        <th>Hành động</th>
+                        <th>id</th>
+                        <th>ảnh</th>
+                        <th>tên sản phẩm</th>
+                        <th>danh mục</th>
+                        <th>giá</th>
+                        <th>ngày tạo</th>
+                        <th>hành động</th>
                     </tr>
                 </thead>
 
@@ -36,19 +40,20 @@
 
                                 <td>
                                     <?php if (!empty($item['images'])): ?>
-                                        <img src="../public/uploads/<?= $item['images'] ?>"
-                                            width="50" height="50"
-                                            style="object-fit:cover">
+                                        <img src="<?= $base_url . $item['images'] ?>"
+                                             width="50" height="50"
+                                             style="object-fit:cover">
                                     <?php else: ?>
-                                        <img src="../public/uploads/default.png"
-                                            width="50" height="50">
+                                        <img src="<?= $base_url ?>default.png"
+                                             width="50" height="50"
+                                             style="object-fit:cover">
                                     <?php endif; ?>
                                 </td>
 
                                 <td><?= htmlspecialchars($item['name']) ?></td>
 
                                 <td>
-                                    <?= $item['category_name'] ?? 'Chưa có' ?>
+                                    <?= $item['category_name'] ?? 'chưa có' ?>
                                 </td>
 
                                 <td>
@@ -56,17 +61,17 @@
                                 </td>
 
                                 <td>
-                                    <?= date('d/m/Y', strtotime($item['created_at'])) ?>
+                                    <?= !empty($item['created_at']) ? date('d/m/Y', strtotime($item['created_at'])) : '' ?>
                                 </td>
 
                                 <td>
-                                    <a href="index.php?act=show-product&id=<?= $item['id'] ?>" class="btn btn-sm btn-info">Xem</a>
+                                    <a href="index.php?act=show-product&id=<?= $item['id'] ?>" class="btn btn-sm btn-info">xem</a>
 
-                                    <a href="index.php?act=edit-product&id=<?= $item['id'] ?>" class="btn btn-sm btn-warning">Sửa</a>
+                                    <a href="index.php?act=edit-product&id=<?= $item['id'] ?>" class="btn btn-sm btn-warning">sửa</a>
 
                                     <a href="index.php?act=delete-product&id=<?= $item['id'] ?>"
-                                        onclick="return confirm('Xóa sản phẩm?')"
-                                        class="btn btn-sm btn-danger">Xóa</a>
+                                        onclick="return confirm('xóa sản phẩm?')"
+                                        class="btn btn-sm btn-danger">xóa</a>
                                 </td>
 
                             </tr>
@@ -76,7 +81,7 @@
 
                         <tr>
                             <td colspan="7" class="text-center">
-                                Chưa có sản phẩm
+                                chưa có sản phẩm
                             </td>
                         </tr>
 
