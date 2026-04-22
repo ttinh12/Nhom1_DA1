@@ -2,6 +2,38 @@
 
 class ProductController
 {
+
+    private $productModel; // 👉 khai báo
+
+    public function __construct()
+    {
+        require_once __DIR__ . "/../../Model/Database.php";
+        require_once __DIR__ . "/../../Model/Product.php";
+
+        $db = new Database();
+        $connect = $db->connect();
+
+        // 👉 khởi tạo
+        $this->productModel = new Product($connect);
+    }
+
+    public function detail()
+    {
+        $id = $_GET['id'] ?? 0;
+
+        $product = $this->productModel->getById($id);
+        $variants = $this->productModel->getVariantsByProductId($id);
+        $product = $this->productModel->getByIdWithCategory($id);
+        $relatedProducts = $this->productModel ->getRelatedProducts($product['category_id'], $id);
+
+        if (!$product) {
+            echo "Không tìm thấy sản phẩm";
+            return;
+        }
+
+        include "Client/View/Pages/Product/ProductDetail.php";
+    }
+
     public function addToCart()
     {
         if (session_status() === PHP_SESSION_NONE) {

@@ -78,7 +78,7 @@
 
               <div class="col-lg-4 col-md-6 item-entry mb-4">
 
-                <a href="#" class="product-item md-height bg-gray d-block">
+                <a href="index.php?page=product_detail&id=<?= $item['id'] ?>" class="product-item md-height bg-gray d-block">
                   <img src="public/assets/images/<?php echo $item['images']; ?>" class="img-fluid">
                 </a>
 

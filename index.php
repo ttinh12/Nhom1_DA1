@@ -31,6 +31,12 @@ switch ($page) {
         include "Client/View/Pages/product.php";
         break;
 
+    case 'product_detail':
+        require_once __DIR__ . "/Client/Controller/ProductController.php";
+        $productController = new ProductController();
+        $productController->detail();
+        break;
+
     case 'cart':
         include "Client/View/Pages/cart.php";
         break;

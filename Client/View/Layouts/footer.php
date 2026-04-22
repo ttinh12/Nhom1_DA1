@@ -4,7 +4,8 @@
             <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
                 <h3 class="footer-heading mb-4">Khuyến mãi</h3>
                 <a href="#" class="block-6">
-                    <img src="public/assets/images/khuyen mai.jpeg" alt="Image placeholder" class="img-fluid rounded mb-4">
+                    <img src="public/assets/images/khuyen mai.jpeg" alt="Image placeholder"
+                        class="img-fluid rounded mb-4">
                     <h3 class="font-weight-light mb-0">Tìm chiếc áo hoàn hảo cho mùa hè này</h3>
                     <p>Khuyến mãi từ ngày 15 &mdash; 25 tháng 7, 2026</p>
                 </a>
@@ -88,6 +89,7 @@
 <script src="public/assets/js/jquery.magnific-popup.min.js"></script>
 <script src="public/assets/js/aos.js"></script>
 <script src="public/assets/js/main.js"></script>
+<script src="public/assets/js/product-detail.js"></script>
 </body>
 
 </html>

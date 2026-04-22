@@ -16,7 +16,10 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="public/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/assets/css/style.css">
     <link rel="stylesheet" href="public/assets/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="public/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="public/assets/css/owl.theme.default.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>

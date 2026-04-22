@@ -129,14 +129,30 @@ class Product
         $stmt = $this->_connect->prepare($sql);
         return $stmt->execute([$product_id]);
     }
-    public function getAllWithCategory()
+    public function getByIdWithCategory($id)
     {
         $sql = "SELECT p.*, c.name AS category_name 
-                FROM {$this->table} p
-                LEFT JOIN categories c ON c.id = p.category_id
-                ORDER BY p.created_at DESC";
+            FROM {$this->table} p
+            LEFT JOIN categories c ON c.id = p.category_id
+            WHERE p.id = ?";
+
         $sth = $this->_connect->prepare($sql);
-        $sth->execute();
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
+        $sth->execute([$id]);
+
+        return $sth->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getRelatedProducts($category_id, $current_id, $limit = 6)
+    {
+        $sql = "SELECT * FROM {$this->table} 
+            WHERE category_id = ? 
+            AND id != ? 
+            ORDER BY id DESC 
+            LIMIT $limit";
+
+        $stmt = $this->_connect->prepare($sql);
+        $stmt->execute([$category_id, $current_id]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
