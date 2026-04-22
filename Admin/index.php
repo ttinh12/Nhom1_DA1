@@ -1,37 +1,37 @@
 <?php
-ob_start();
 session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// connect database
+require_once "../Model/Database.php";
 
-// Kết nối DB
-require_once 'Model/Database.php';
 $db = new Database();
 $connect = $db->connect();
 
-// Controllers
-require_once 'Controller/ProductController.php';
-require_once 'Controller/CategoryController.php';
+// load controller
+require_once "Controller/ProductController.php";
+require_once "Controller/CategoryController.php";
+require_once "Controller/OrderController.php";
 
+// khởi tạo
 $productCtrl = new ProductController($connect);
-$categoryController = new CategoryController($connect);
+// $categoryCtrl = new CategoryController($connect);
+// $orderCtrl = new OrderController($connect);
 
-// Router chung
+// router
 $act = $_GET['act'] ?? 'dashboard';
-?>
 
-<?php include 'View/layouts/header.php'; ?>
+// header
+include "View/layouts/header.php";
+?>
 
 <div class="layout-wrapper layout-content-navbar">
   <div class="layout-container">
 
-    <?php include 'View/layouts/sidebar.php'; ?>
+    <?php include "View/layouts/sidebar.php"; ?>
 
     <div class="layout-page">
 
-      <?php include 'View/layouts/navbar.php'; ?>
+      <?php include "View/layouts/navbar.php"; ?>
 
       <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -39,12 +39,12 @@ $act = $_GET['act'] ?? 'dashboard';
           <?php
           switch ($act) {
 
-            // ===== DASHBOARD =====
+            // dashboard
             case 'dashboard':
-              include 'View/dashboard.php';
+              include "View/dashboard.php";
               break;
 
-            // ===== PRODUCT =====
+            // product
             case 'products':
               $productCtrl->listProduct();
               break;
@@ -54,51 +54,53 @@ $act = $_GET['act'] ?? 'dashboard';
               break;
 
             case 'edit-product':
-              $id = $_GET['id'] ?? null;
-              if ($id) $productCtrl->editProduct($id);
+              $productCtrl->editProduct($_GET['id'] ?? 0);
               break;
 
             case 'delete-product':
-              $id = $_GET['id'] ?? null;
-              if ($id) $productCtrl->deleteProduct($id);
+              $productCtrl->deleteProduct($_GET['id'] ?? 0);
               break;
 
             case 'show-product':
-              $id = $_GET['id'] ?? null;
-              if ($id) {
-                $productCtrl->showProduct($id);
-              } else {
-                header("Location: index.php?act=products");
-              }
+              $productCtrl->showProduct($_GET['id'] ?? 0);
               break;
 
-            // ===== CATEGORY =====
-            case 'category':
-              $categoryController->index();
-              break;
+            // category
+            // case 'category':
+            //   $categoryCtrl->index();
+            //   break;
 
-            case 'category-create':
-              $categoryController->create();
-              break;
+            // case 'category-create':
+            //   $categoryCtrl->create();
+            //   break;
 
-            case 'category-update':
-              $categoryController->update();
-              break;
+            // case 'category-update':
+            //   $categoryCtrl->update();
+            //   break;
 
-            case 'category-delete':
-              $categoryController->delete();
-              break;
+            // case 'category-delete':
+            //   $categoryCtrl->delete();
+            //   break;
 
-            // ===== DEFAULT =====
+            // order
+            // case 'orders':
+            //   $orderCtrl->index();
+            //   break;
+
+            // case 'order-detail':
+            //   $orderCtrl->show($_GET['id'] ?? 0);
+            //   break;
+
+            // mặc định
             default:
-              include 'View/dashboard.php';
+              include "View/dashboard.php";
               break;
           }
           ?>
 
         </div>
 
-        <?php include 'View/layouts/footer.php'; ?>
+        <?php include "View/layouts/footer.php"; ?>
 
       </div>
     </div>

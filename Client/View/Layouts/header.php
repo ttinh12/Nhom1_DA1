@@ -51,24 +51,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li class="has-children active">
-                                    <a href="index.php">Home</a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">Menu One</a></li>
-                                        <li><a href="#">Menu Two</a></li>
-                                        <li><a href="#">Menu Three</a></li>
-                                        <li class="has-children">
-                                            <a href="#">Sub Menu</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">Menu One</a></li>
-                                                <li><a href="#">Menu Two</a></li>
-                                                <li><a href="#">Menu Three</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
 
+                                <li><a href="index.php">Trang Chủ</a></li>
                                 <li><a href="index.php?page=product">Cửa hàng</a></li>
+                                <li><a href="index.php?page=blog">Tin Tức</a></li>
                                 <li><a href="index.php?page=about">Giới thiệu</a></li>
                                 <li><a href="index.php?page=contact">Liên hệ</a></li>
 

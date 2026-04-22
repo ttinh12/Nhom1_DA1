@@ -1,40 +1,45 @@
 <?php
 ob_start();
 session_start();
-require_once __DIR__ . "/Model/Database.php";
-$page = $_GET['page']??'';
 
+// ===== LOAD MODEL =====
+require_once "Model/Database.php";
+require_once "Model/Product.php";
+
+// ===== CONNECT DB =====
 $db = new Database();
 $connect = $db->connect();
 
-include "Client/View/Layouts/header.php";
-
-if ($page == 'home' || $page == 'product') {
-    require_once __DIR__ . "/Model/Product.php";
-
-    $product = new Product($connect);
-    $products = $product->getAll();
-}
-
+// ===== LOAD CONTROLLER =====
 require_once "Client/Controller/AuthController.php";
+require_once "Client/Controller/ProductController.php";
+
+// ===== INIT =====
+$productModel = new Product($connect);
 $auth = new AuthController($connect);
 
+// ===== ROUTER =====
+$page = $_GET['page'] ?? 'home';
 
-// ===== ROUTE =====
+// ===== HEADER =====
+include "Client/View/Layouts/header.php";
+
+// ===== XỬ LÝ =====
 switch ($page) {
- 
+
     case 'home':
+        $products = $productModel->getAll();
         include "Client/View/Pages/home.php";
         break;
 
     case 'product':
+        $products = $productModel->getAll();
         include "Client/View/Pages/product.php";
         break;
 
     case 'product_detail':
-        require_once __DIR__ . "/Client/Controller/ProductController.php";
-        $productController = new ProductController();
-        $productController->detail();
+        $controller = new ProductController($connect);
+        $controller->detail();
         break;
 
     case 'cart':
@@ -46,13 +51,15 @@ switch ($page) {
         break;
 
     case 'addtocart':
-        require_once __DIR__ . "/Client/Controller/ProductController.php";
-        $controller = new ProductController();
+        $controller = new ProductController($connect);
         $controller->addToCart();
-        break;
+        exit;
+
+    // ===== AUTH =====
     case 'login':
         $auth->login();
         break;
+
     case 'register':
         $auth->register();
         break;
@@ -60,21 +67,20 @@ switch ($page) {
     case 'logout':
         $auth->logout();
         break;
-        
+
     case 'deletecart':
-
         $id = $_GET['id'] ?? 0;
-
         if ($id && isset($_SESSION['cart'][$id])) {
             unset($_SESSION['cart'][$id]);
         }
-
         header("Location: index.php?page=cart");
         exit;
 
     default:
+        $products = $productModel->getAll();
         include "Client/View/Pages/home.php";
         break;
 }
 
+// ===== FOOTER =====
 include "Client/View/Layouts/footer.php";
