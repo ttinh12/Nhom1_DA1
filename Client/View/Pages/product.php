@@ -78,7 +78,8 @@
 
               <div class="col-lg-4 col-md-6 item-entry mb-4">
 
-                <a href="index.php?page=product_detail&id=<?= $item['id'] ?>" class="product-item md-height bg-gray d-block">
+                <a href="index.php?page=product_detail&id=<?= $item['id'] ?>"
+                  class="product-item md-height bg-gray d-block">
                   <img src="public/assets/images/<?php echo $item['images']; ?>" class="img-fluid">
                 </a>
 
@@ -101,8 +102,10 @@
                   </form>
 
                   <!-- BUY NOW -->
-                  <form action="index.php?page=buynow" method="post" class="w-50">
-                    <input type="hidden" name="product_id" value="<?= $item['id']; ?>">
+                  <form action="index.php" method="GET" class="w-50">
+                    <input type="hidden" name="page" value="product_detail">
+                    <input type="hidden" name="id" value="<?= $item['id']; ?>">
+
                     <button type="submit" class="btn btn-dark btn-sm w-100">
                       Mua ngay
                     </button>

@@ -1,22 +1,20 @@
-
-
-    <div class="site-blocks-cover" data-aos="fade">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 ml-auto order-md-2 align-self-start">
-            <div class="site-block-cover-content">
-            <h2 class="sub-title">#New Summer Collection 2019</h2>
-            <h1>Arrivals Sales</h1>
-            <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
-            </div>
-          </div>
-          <div class="col-md-6 order-1 align-self-end">
-            <img src="https://bizweb.dktcdn.net/100/403/511/themes/786953/assets/slide_img_1.jpg?1775096171443">
-          </div>
+<div class="site-blocks-cover" data-aos="fade">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 ml-auto order-md-2 align-self-start">
+        <div class="site-block-cover-content">
+          <h2 class="sub-title">#New Summer Collection 2019</h2>
+          <h1>Arrivals Sales</h1>
+          <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
         </div>
+      </div>
+      <div class="col-md-6 order-1 align-self-end">
+        <img src="https://bizweb.dktcdn.net/100/403/511/themes/786953/assets/slide_img_1.jpg?1775096171443">
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 <div class="site-section">
   <div class="container">
@@ -55,8 +53,10 @@
                 </form>
 
                 <!-- Mua ngay -->
-                <form action="index.php?act=buynow" method="post">
-                  <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
+                <form action="index.php" method="GET">
+                  <input type="hidden" name="page" value="product_detail">
+                  <input type="hidden" name="id" value="<?php echo $item['id']; ?>">
+
                   <button type="submit" class="btn btn-dark btn-sm w-100">
                     Mua ngay
                   </button>
