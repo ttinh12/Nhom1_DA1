@@ -14,21 +14,27 @@ $categoryCtrl = new CategoryController($connect);
 
 $act = $_GET['act'] ?? 'dashboard';
 
-// xử lý trước
+// xử lý trước (chỉ xử lý logic, KHÔNG render view)
 switch ($act) {
 
+    // product
     case 'add-product':
-        $productCtrl->addProduct();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productCtrl->addProduct();
+        }
         break;
 
     case 'edit-product':
-        $productCtrl->editProduct($_GET['id'] ?? 0);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productCtrl->editProduct($_GET['id'] ?? 0);
+        }
         break;
 
     case 'delete-product':
         $productCtrl->deleteProduct($_GET['id'] ?? 0);
         break;
 
+    // category
     case 'category-create':
         $categoryCtrl->create();
         break;
@@ -64,8 +70,19 @@ include "View/layouts/header.php";
               include "View/dashboard.php";
               break;
 
+            // product
             case 'products':
               $productCtrl->listProduct();
+              break;
+
+            case 'add-product':
+              include "View/Modules/products/create.php";
+              break;
+
+            case 'edit-product':
+              $product = $productCtrl->getById($_GET['id'] ?? 0);
+              $variants = $productCtrl->getVariants($_GET['id'] ?? 0);
+              include "View/Modules/products/update.php";
               break;
 
             case 'show-product':

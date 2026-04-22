@@ -1,14 +1,10 @@
 <?php
-// LẤY GIỎ HÀNG TỪ SESSION 
 $cart = $_SESSION['cart'] ?? [];
-
-// BIẾN LƯU TỔNG TIỀN
 $total = 0;
 ?>
 
 <div class="site-wrap">
 
-    <!-- BREADCRUMB -->
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
@@ -21,8 +17,6 @@ $total = 0;
         </div>
     </div>
 
-
-    <!-- DANH SÁCH GIỎ HÀNG  -->
     <div class="site-section">
         <div class="container">
 
@@ -42,13 +36,13 @@ $total = 0;
                                     <th>Giá</th>
                                     <th>SL</th>
                                     <th>Tổng</th>
-                                    <th>Xóa</th> <!-- ✅ THÊM -->
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                                <?php foreach ($cart as $item): ?>
+                                <?php foreach ($cart as $key => $item): ?>
 
                                     <?php
                                     $sum = $item['price'] * $item['quantity'];
@@ -69,10 +63,11 @@ $total = 0;
 
                                         <td><?= number_format($sum) ?> đ</td>
 
-                                        <!--  NÚT XÓA -->
                                         <td>
-                                            <a href="index.php?page=deletecart&id=<?= $item['id'] ?>"
-                                                onclick="return confirm('Bạn có chắc muốn xóa?')" class="btn-delete">
+                                            <!-- NÚT XÓA ĐÃ SỬA -->
+                                            <a href="index.php?page=deletecart&key=<?= $key ?>"
+                                                onclick="return confirm('Bạn có chắc muốn xóa?')" 
+                                                class="btn-delete">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>
@@ -89,8 +84,6 @@ $total = 0;
                 </div>
             </div>
 
-
-            <!--TỔNG TIỀN + NÚT  -->
             <div class="row">
 
                 <div class="col-md-6">

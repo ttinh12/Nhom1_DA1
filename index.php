@@ -1,30 +1,50 @@
 <?php
-ob_start();
 session_start();
 
-// ===== LOAD MODEL =====
+// load model
 require_once "Model/Database.php";
 require_once "Model/Product.php";
 
-// ===== CONNECT DB =====
+// connect
 $db = new Database();
 $connect = $db->connect();
 
-// ===== LOAD CONTROLLER =====
+// load controller
 require_once "Client/Controller/AuthController.php";
 require_once "Client/Controller/ProductController.php";
 
-// ===== INIT =====
+// init
 $productModel = new Product($connect);
 $auth = new AuthController($connect);
+$productCtrl = new ProductController();
 
-// ===== ROUTER =====
+// router
 $page = $_GET['page'] ?? 'home';
 
-// ===== HEADER =====
+// header
 include "Client/View/Layouts/header.php";
 
-// ===== XỬ LÝ =====
+// xử lý action trước (POST)
+switch ($page) {
+
+    case 'addtocart':
+        $productCtrl->addToCart();
+        exit;
+
+    case 'login':
+        $auth->login();
+        break;
+
+    case 'register':
+        $auth->register();
+        break;
+
+    case 'logout':
+        $auth->logout();
+        break;
+}
+
+// hiển thị view
 switch ($page) {
 
     case 'home':
@@ -38,8 +58,7 @@ switch ($page) {
         break;
 
     case 'product_detail':
-        $controller = new ProductController($connect);
-        $controller->detail();
+        $productCtrl->detail();
         break;
 
     case 'cart':
@@ -50,29 +69,30 @@ switch ($page) {
         include "Client/View/Pages/checkout.php";
         break;
 
-    case 'addtocart':
-        $controller = new ProductController($connect);
-        $controller->addToCart();
-        exit;
-
-    // ===== AUTH =====
-    case 'login':
-        $auth->login();
+    case 'about':
+        include "Client/View/Pages/about.php";
         break;
 
-    case 'register':
-        $auth->register();
+    case 'contact':
+        include "Client/View/Pages/contact.php";
         break;
 
-    case 'logout':
-        $auth->logout();
+    case 'blog':
+        include "Client/View/Pages/Blog/blog.php";
         break;
 
+    case 'blog-detail':
+        include "Client/View/Pages/blog-detail.php";
+        break;
+
+    
     case 'deletecart':
-        $id = $_GET['id'] ?? 0;
-        if ($id && isset($_SESSION['cart'][$id])) {
-            unset($_SESSION['cart'][$id]);
+        $key = $_GET['key'] ?? '';
+
+        if (isset($_SESSION['cart'][$key])) {
+            unset($_SESSION['cart'][$key]);
         }
+
         header("Location: index.php?page=cart");
         exit;
 
@@ -82,5 +102,5 @@ switch ($page) {
         break;
 }
 
-// ===== FOOTER =====
+// footer
 include "Client/View/Layouts/footer.php";

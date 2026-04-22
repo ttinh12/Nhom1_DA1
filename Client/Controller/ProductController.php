@@ -2,8 +2,7 @@
 
 class ProductController
 {
-
-    private $productModel; // 👉 khai báo
+    private $productModel;
 
     public function __construct()
     {
@@ -13,7 +12,6 @@ class ProductController
         $db = new Database();
         $connect = $db->connect();
 
-        // 👉 khởi tạo
         $this->productModel = new Product($connect);
     }
 
@@ -21,10 +19,9 @@ class ProductController
     {
         $id = $_GET['id'] ?? 0;
 
-        $product = $this->productModel->getById($id);
-        $variants = $this->productModel->getVariantsByProductId($id);
         $product = $this->productModel->getByIdWithCategory($id);
-        $relatedProducts = $this->productModel ->getRelatedProducts($product['category_id'], $id);
+        $variants = $this->productModel->getVariantsByProductId($id);
+        $relatedProducts = $this->productModel->getRelatedProducts($product['category_id'], $id);
 
         if (!$product) {
             echo "Không tìm thấy sản phẩm";
@@ -40,25 +37,27 @@ class ProductController
             session_start();
         }
 
-        require_once __DIR__ . "/../../Model/Database.php";
-        require_once __DIR__ . "/../../Model/Product.php";
+        $product_id = $_POST['product_id'] ?? 0;
+        $variant_id = $_POST['variant_id'] ?? 0;
+        $qty = $_POST['qty'] ?? 1;
 
-        $db = new Database();
-        $connect = $db->connect();
-
-        $productModel = new Product($connect);
-
-        // FIX CHÍNH Ở ĐÂY
-        $id = $_POST['product_id'] ?? 0;
-
-        if (!$id) {
-            echo "Thiếu id sản phẩm";
+        if (!$product_id || !$variant_id) {
+            echo "Thiếu dữ liệu";
             return;
         }
 
-        $product = $productModel->getById($id);
+        $product = $this->productModel->getById($product_id);
+        $variants = $this->productModel->getVariantsByProductId($product_id);
 
-        if (!$product) {
+        $variant = null;
+        foreach ($variants as $v) {
+            if ($v['id'] == $variant_id) {
+                $variant = $v;
+                break;
+            }
+        }
+
+        if (!$product || !$variant) {
             echo "Không tìm thấy sản phẩm";
             return;
         }
@@ -67,15 +66,19 @@ class ProductController
             $_SESSION['cart'] = [];
         }
 
-        if (isset($_SESSION['cart'][$id])) {
-            $_SESSION['cart'][$id]['quantity']++;
+        $key = $product_id . '_' . $variant_id;
+
+        if (isset($_SESSION['cart'][$key])) {
+            $_SESSION['cart'][$key]['quantity'] += $qty;
         } else {
-            $_SESSION['cart'][$id] = [
-                'id' => $id,
+            $_SESSION['cart'][$key] = [
+                'id' => $product_id,
+                'variant_id' => $variant_id,
                 'name' => $product['name'],
-                'price' => $product['base_price'],
-                'image' => $product['images'],
-                'quantity' => 1
+                'sku' => $variant['sku'],
+                'price' => $variant['price'],
+                'image' => $variant['image'] ? $variant['image'] : $product['images'],
+                'quantity' => $qty
             ];
         }
 

@@ -100,14 +100,24 @@
                     </div>
                 </div>
 
-                <form action="index.php?page=addtocart" method="GET">
-                    <input type="hidden" name="variant_id" id="variantInput">
-                    <input type="hidden" name="qty" id="qtyInput">
-                    <button type="submit"
-                            class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">
-                        Thêm vào giỏ
-                    </button>
-                </form>
+<form action="index.php?page=addtocart" method="POST">
+
+    <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+
+    <!-- lấy variant -->
+    <input type="hidden" name="variant_id"
+        value="<?= $variants[0]['id'] ?? '' ?>">
+
+    <!-- lấy số lượng -->
+    <input type="hidden" name="qty"
+        value="1">
+
+    <button type="submit"
+        class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">
+        Thêm vào giỏ
+    </button>
+
+</form>
             </div>
         </div>
     </div>
