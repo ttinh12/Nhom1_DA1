@@ -2,6 +2,7 @@
 ob_start();
 session_start();
 require_once __DIR__ . "/Model/Database.php";
+$page = $_GET['page']??'';
 
 $db = new Database();
 $connect = $db->connect();
@@ -15,12 +16,13 @@ if ($page == 'home' || $page == 'product') {
     $products = $product->getAll();
 }
 
-require_once __DIR__ . "/Client/Controller/AuthController.php";
+require_once "Client/Controller/AuthController.php";
 $auth = new AuthController($connect);
+
 
 // ===== ROUTE =====
 switch ($page) {
-
+ 
     case 'home':
         include "Client/View/Pages/home.php";
         break;
@@ -43,7 +45,7 @@ switch ($page) {
         $controller->addToCart();
         break;
     case 'login':
-        include "Client/View/Pages/Auth/login.php";
+        $auth->login();
         break;
     case 'register':
         $auth->register();
@@ -52,6 +54,7 @@ switch ($page) {
     case 'logout':
         $auth->logout();
         break;
+        
     case 'deletecart':
 
         $id = $_GET['id'] ?? 0;
