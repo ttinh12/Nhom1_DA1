@@ -1,26 +1,47 @@
 <?php
 session_start();
 
-// connect database
 require_once "../Model/Database.php";
 
 $db = new Database();
 $connect = $db->connect();
 
-// load controller
 require_once "Controller/ProductController.php";
 require_once "Controller/CategoryController.php";
-require_once "Controller/OrderController.php";
 
-// khởi tạo
 $productCtrl = new ProductController($connect);
-// $categoryCtrl = new CategoryController($connect);
-// $orderCtrl = new OrderController($connect);
+$categoryCtrl = new CategoryController($connect);
 
-// router
 $act = $_GET['act'] ?? 'dashboard';
 
-// header
+// xử lý trước
+switch ($act) {
+
+    case 'add-product':
+        $productCtrl->addProduct();
+        break;
+
+    case 'edit-product':
+        $productCtrl->editProduct($_GET['id'] ?? 0);
+        break;
+
+    case 'delete-product':
+        $productCtrl->deleteProduct($_GET['id'] ?? 0);
+        break;
+
+    case 'category-create':
+        $categoryCtrl->create();
+        break;
+
+    case 'category-update':
+        $categoryCtrl->update();
+        break;
+
+    case 'category-delete':
+        $categoryCtrl->delete();
+        break;
+}
+
 include "View/layouts/header.php";
 ?>
 
@@ -39,26 +60,12 @@ include "View/layouts/header.php";
           <?php
           switch ($act) {
 
-            // dashboard
             case 'dashboard':
               include "View/dashboard.php";
               break;
 
-            // product
             case 'products':
               $productCtrl->listProduct();
-              break;
-
-            case 'add-product':
-              $productCtrl->addProduct();
-              break;
-
-            case 'edit-product':
-              $productCtrl->editProduct($_GET['id'] ?? 0);
-              break;
-
-            case 'delete-product':
-              $productCtrl->deleteProduct($_GET['id'] ?? 0);
               break;
 
             case 'show-product':
@@ -66,32 +73,20 @@ include "View/layouts/header.php";
               break;
 
             // category
-            // case 'category':
-            //   $categoryCtrl->index();
-            //   break;
+            case 'category':
+              $categories = $categoryCtrl->index();
+              include "View/Modules/categories/index.php";
+              break;
 
-            // case 'category-create':
-            //   $categoryCtrl->create();
-            //   break;
+            case 'category-create':
+              include "View/Modules/categories/create.php";
+              break;
 
-            // case 'category-update':
-            //   $categoryCtrl->update();
-            //   break;
+            case 'category-update':
+              $category = $categoryCtrl->getById($_GET['id'] ?? 0);
+              include "View/Modules/categories/update.php";
+              break;
 
-            // case 'category-delete':
-            //   $categoryCtrl->delete();
-            //   break;
-
-            // order
-            // case 'orders':
-            //   $orderCtrl->index();
-            //   break;
-
-            // case 'order-detail':
-            //   $orderCtrl->show($_GET['id'] ?? 0);
-            //   break;
-
-            // mặc định
             default:
               include "View/dashboard.php";
               break;
