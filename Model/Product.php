@@ -17,11 +17,10 @@ class Product
 
     public function getAll()
     {
-        $sql = "SELECT * FROM {$this->table}";
-        $sth = $this->_connect->prepare($sql);
-        $sth->execute();
-
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT * FROM product";
+        $stmt = $this->_connect->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -141,5 +140,3 @@ class Product
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-
-?>

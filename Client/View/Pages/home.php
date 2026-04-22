@@ -1,47 +1,18 @@
-<div class="site-blocks-cover" data-aos="fade">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 ml-auto order-md-2 align-self-center">
-        <div class="site-block-cover-content">
-          <h2 class="sub-title">#Bộ Sưu Tập Mùa Hè Mới 2019</h2>
-          <h1>Sản Phẩm Mới Giảm Giá</h1>
-          <p><a href="#" class="btn btn-black rounded-0">Mua Ngay</a></p>
-        </div>
-      </div>
-      <div class="col-md-6 order-1 align-self-end">
-        <img src="public/assets/images/banner-thoi-trang4.jpg" class="img-fluid" alt="Slider">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="site-section">
-  <div class="container">
-    <div class="title-section mb-5">
-      <h2 class="text-uppercase">
-        <span class="d-block">Khám phá</span> Bộ sưu tập
-      </h2>
-    </div>
-    <div class="row align-items-stretch">
-      <div class="col-lg-8">
-        <div class="product-item sm-height full-height bg-gray">
-          <a href="#" class="product-category">
-            Nữ <span>25 sản phẩm</span>
-          </a>
-          <img src="public/assets/images/Banner1.jpg" alt="Image" class="img-fluid">
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="product-item sm-height bg-gray mb-4">
-          <a href="#" class="product-category">
-            Áo <span> sản phẩm</span>
-          </a>
-          <img src="public/assets/images/Banner2.jpg" alt="Image" class="img-fluid">
-        </div>
-        <div class="product-item sm-height bg-gray">
-          <a href="#" class="product-category">
-            Giày <span>25 sản phẩm</span>
-          </a>
-          <img src="public/assets/images/Banner6.jpg" alt="Image" class="img-fluid">
+
+
+    <div class="site-blocks-cover" data-aos="fade">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto order-md-2 align-self-start">
+            <div class="site-block-cover-content">
+            <h2 class="sub-title">#New Summer Collection 2019</h2>
+            <h1>Arrivals Sales</h1>
+            <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+            </div>
+          </div>
+          <div class="col-md-6 order-1 align-self-end">
+            <img src="https://bizweb.dktcdn.net/100/403/511/themes/786953/assets/slide_img_1.jpg?1775096171443">
+          </div>
         </div>
       </div>
     </div>

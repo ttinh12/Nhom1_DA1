@@ -1,9 +1,6 @@
 <?php
 ob_start();
 session_start();
-
-$page = $_GET['page'] ?? 'home';
-
 require_once __DIR__ . "/Model/Database.php";
 
 $db = new Database();
@@ -45,11 +42,9 @@ switch ($page) {
         $controller = new ProductController();
         $controller->addToCart();
         break;
-
     case 'login':
-        $auth->login();
+        include "Client/View/Pages/Auth/login.php";
         break;
-
     case 'register':
         $auth->register();
         break;

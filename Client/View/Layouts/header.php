@@ -40,7 +40,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <!-- LOGO -->
                     <div class="logo">
                         <div class="site-logo">
-                            <a href="index.php?page=home" class="js-logo-clone">ShopMax</a>
+                            <a href="index.php" class="js-logo-clone">ShopMax</a>
                         </div>
                     </div>
 
@@ -48,9 +48,21 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-
-                                <li class="active">
-                                    <a href="index.php?page=home">Trang chủ</a>
+                                <li class="has-children active">
+                                    <a href="index.php">Home</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Menu One</a></li>
+                                        <li><a href="#">Menu Two</a></li>
+                                        <li><a href="#">Menu Three</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Sub Menu</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Menu One</a></li>
+                                                <li><a href="#">Menu Two</a></li>
+                                                <li><a href="#">Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </li>
 
                                 <li><a href="index.php?page=product">Cửa hàng</a></li>
@@ -60,22 +72,11 @@ if (session_status() === PHP_SESSION_NONE) {
                             </ul>
                         </nav>
                     </div>
-
-                    <!-- ICON -->
-                    <div class="icons d-flex align-items-center gap-3">
-
-                        <!-- SEARCH -->
-                        <a href="#" class="icons-btn d-inline-block js-search-open">
-                            <span class="icon-search"></span>
-                        </a>
-
-                        <!-- HEART -->
-                        <a href="#" class="icons-btn d-inline-block">
-                            <span class="icon-heart-o"></span>
-                        </a>
-
-                        <!-- CART -->
-                        <a href="index.php?page=cart" class="icons-btn d-inline-block bag">
+                    <div class="icons">
+                        <a href="#" class="icons-btn d-inline-block js-search-open"><span
+                                class="icon-search"></span></a>
+                        <a href="#" class="icons-btn d-inline-block"><span class="icon-heart-o"></span></a>
+                        <a href="?page=cart" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             <span class="number">2</span>
                         </a>

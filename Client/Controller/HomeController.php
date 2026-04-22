@@ -1,7 +1,8 @@
 <?php
 require_once "Model/Product.php";
 
-class HomeController {
+class HomeController
+{
 
     private $product;
 
@@ -13,10 +14,13 @@ class HomeController {
     public function index()
     {
         $products = $this->product->getAll();
+        include "Client/View/Pages/home.php";
+    }
 
-        // debug thử nếu chưa ra
-        // var_dump($products); die;
+    public function product()
+    {
+        $products = $this->product->getAll();
 
-        include "View/home.php";
+        require "Client/View/Pages/product.php";
     }
 }
