@@ -85,11 +85,11 @@ switch ($page) {
         include "Client/View/Pages/blog-detail.php";
         break;
 
-    
+
     case 'deletecart':
         $key = $_GET['key'] ?? '';
 
-        if (isset($_SESSION['cart'][$key])) {
+        if ($key && isset($_SESSION['cart'][$key])) {
             unset($_SESSION['cart'][$key]);
         }
 

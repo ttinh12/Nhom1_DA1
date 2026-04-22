@@ -37,6 +37,12 @@ class ProductController
             session_start();
         }
 
+        // chặn chưa đăng nhập
+        if (!isset($_SESSION['user'])) {
+            header("Location: index.php?page=login");
+            exit;
+        }
+
         $product_id = $_POST['product_id'] ?? 0;
         $variant_id = $_POST['variant_id'] ?? 0;
         $qty = $_POST['qty'] ?? 1;
