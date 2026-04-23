@@ -1,35 +1,45 @@
 <?php
 session_start();
 
-// load model
 require_once "Model/Database.php";
 require_once "Model/Product.php";
-
-// connect
-$db = new Database();
-$connect = $db->connect();
-
-// load controller
 require_once "Client/Controller/AuthController.php";
 require_once "Client/Controller/ProductController.php";
 
-// init
+$db = new Database();
+$connect = $db->connect();
+
 $productModel = new Product($connect);
 $auth = new AuthController($connect);
-$productCtrl = new ProductController();
+$productCtrl = new ProductController($connect);
 
-// router
 $page = $_GET['page'] ?? 'home';
 
-// header
-include "Client/View/Layouts/header.php";
-
-// xử lý action trước (POST)
+// === Xử lý các action không cần header/footer ===
 switch ($page) {
 
     case 'addtocart':
         $productCtrl->addToCart();
         exit;
+
+    case 'logout':
+        $auth->logout();
+        exit;
+
+    case 'deletecart':
+        $key = $_GET['key'] ?? '';
+        if ($key && isset($_SESSION['cart'][$key])) {
+            unset($_SESSION['cart'][$key]);
+        }
+        header("Location: index.php?page=cart");
+        exit;
+}
+
+// === Render header ===
+include "Client/View/Layouts/header.php";
+
+// === Render page ===
+switch ($page) {
 
     case 'login':
         $auth->login();
@@ -38,14 +48,6 @@ switch ($page) {
     case 'register':
         $auth->register();
         break;
-
-    case 'logout':
-        $auth->logout();
-        break;
-}
-
-// hiển thị view
-switch ($page) {
 
     case 'home':
         $products = $productModel->getAll();
@@ -74,7 +76,7 @@ switch ($page) {
         break;
 
     case 'contact':
-        include "Client/View/Pages/contact.php";
+        include "Client/View/Pages/Contact.php";
         break;
 
     case 'blog':
@@ -82,19 +84,8 @@ switch ($page) {
         break;
 
     case 'blog-detail':
-        include "Client/View/Pages/blog-detail.php";
+        include "Client/View/Pages/Blog/blog_detail.php";
         break;
-
-
-    case 'deletecart':
-        $key = $_GET['key'] ?? '';
-
-        if ($key && isset($_SESSION['cart'][$key])) {
-            unset($_SESSION['cart'][$key]);
-        }
-
-        header("Location: index.php?page=cart");
-        exit;
 
     default:
         $products = $productModel->getAll();
@@ -102,5 +93,5 @@ switch ($page) {
         break;
 }
 
-// footer
+// === Render footer ===
 include "Client/View/Layouts/footer.php";

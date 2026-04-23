@@ -1,135 +1,118 @@
-<?php 
-/** @var array $product */ 
+<?php
+/** @var array $product */
 /** @var array $variants */
+
+$base_url = "/Nhom1_DA1/public/assets/images/";
 ?>
 
-<div class="card mb-4">
-    <h5 class="card-header">
-        chi tiết sản phẩm: 
-        <span class="text-primary"><?= $product['name'] ?></span>
-    </h5>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold mb-0">
+        Chi tiết sản phẩm: <span class="text-primary"><?= htmlspecialchars($product['name']) ?></span>
+    </h4>
+    <div>
+        <a href="index.php?act=edit-product&id=<?= $product['id'] ?>" class="btn btn-warning btn-sm me-1">
+            <i class="bx bx-edit"></i> Sửa
+        </a>
+        <a href="index.php?act=products" class="btn btn-secondary btn-sm">
+            <i class="bx bx-arrow-back"></i> Quay lại
+        </a>
+    </div>
+</div>
 
+<div class="card mb-4">
     <div class="card-body">
         <div class="row">
 
-            <div class="col-md-4 text-center border-end">
-
-                <?php
-                $imagePath = "../public/uploads/" . $product['images'];
-                $imageFile = __DIR__ . "/../../../public/uploads/" . $product['images'];
-                ?>
-
-                <?php if (!empty($product['images']) && file_exists($imageFile)): ?>
-                    <img src="<?= $imagePath ?>" class="img-fluid rounded">
+            <div class="col-md-3 text-center border-end">
+                <?php if (!empty($product['images'])): ?>
+                    <img src="<?= $base_url . htmlspecialchars($product['images']) ?>"
+                         class="img-fluid rounded" style="max-height:200px; object-fit:cover">
                 <?php else: ?>
-                    <img src="../public/uploads/default.png" class="img-fluid rounded">
+                    <div class="text-muted py-5">Chưa có ảnh</div>
                 <?php endif; ?>
-
             </div>
 
-            <div class="col-md-8">
-
+            <div class="col-md-9">
                 <table class="table table-borderless">
-
                     <tr>
-                        <th style="width:150px;">tiêu đề</th>
-                        <td><?= $product['title'] ?></td>
+                        <th style="width:140px" class="text-muted">ID</th>
+                        <td>#<?= $product['id'] ?></td>
                     </tr>
-
                     <tr>
-                        <th>giá</th>
-                        <td class="text-danger">
-                            <?= number_format($product['base_price'],0,',','.') ?> đ
+                        <th class="text-muted">Tên</th>
+                        <td><strong><?= htmlspecialchars($product['name']) ?></strong></td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted">Tiêu đề</th>
+                        <td><?= htmlspecialchars($product['title']) ?></td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted">Giá cơ bản</th>
+                        <td class="text-danger fw-bold">
+                            <?= number_format($product['base_price'], 0, ',', '.') ?> đ
                         </td>
                     </tr>
-
                     <tr>
-                        <th>mô tả</th>
-                        <td><?= nl2br($product['description']) ?></td>
+                        <th class="text-muted">Danh mục ID</th>
+                        <td><?= $product['category_id'] ?? '—' ?></td>
                     </tr>
-
                     <tr>
-                        <th>ngày tạo</th>
-                        <td><?= !empty($product['created_at']) ? date('d/m/Y H:i', strtotime($product['created_at'])) : '' ?></td>
+                        <th class="text-muted">Mô tả</th>
+                        <td><?= nl2br(htmlspecialchars($product['description'] ?? '')) ?></td>
                     </tr>
-
+                    <tr>
+                        <th class="text-muted">Ngày tạo</th>
+                        <td><?= !empty($product['created_at']) ? date('d/m/Y H:i', strtotime($product['created_at'])) : '—' ?></td>
+                    </tr>
                 </table>
-
             </div>
 
         </div>
     </div>
 </div>
 
+<!-- Biến thể -->
 <div class="card">
-    <h5 class="card-header">danh sách biến thể</h5>
-
+    <div class="card-header"><strong>Danh sách biến thể (<?= count($variants ?? []) ?>)</strong></div>
     <div class="table-responsive">
-        <table class="table">
-
+        <table class="table table-bordered mb-0">
             <thead>
                 <tr>
-                    <th>ảnh</th>
-                    <th>sku</th>
-                    <th>giá</th>
-                    <th>kho</th>
-                    <th>ngày tạo</th>
+                    <th>Ảnh</th>
+                    <th>SKU</th>
+                    <th>Giá</th>
+                    <th>Tồn kho</th>
+                    <th>Ngày tạo</th>
                 </tr>
             </thead>
-
             <tbody>
-
                 <?php if (!empty($variants)): ?>
                     <?php foreach ($variants as $v): ?>
-
-                        <?php
-                        $vImagePath = "../public/uploads/" . $v['image'];
-                        $vImageFile = __DIR__ . "/../../../public/uploads/" . $v['image'];
-                        ?>
-
                         <tr>
-
                             <td>
-                                <?php if (!empty($v['image']) && file_exists($vImageFile)): ?>
-                                    <img src="<?= $vImagePath ?>" width="45" height="45" style="object-fit:cover">
+                                <?php if (!empty($v['image'])): ?>
+                                    <img src="<?= $base_url . htmlspecialchars($v['image']) ?>"
+                                         width="45" height="45" style="object-fit:cover" class="rounded">
                                 <?php else: ?>
-                                    <img src="../public/uploads/default.png" width="45" height="45">
+                                    <span class="text-muted">—</span>
                                 <?php endif; ?>
                             </td>
-
-                            <td><?= $v['sku'] ?></td>
-
+                            <td><?= htmlspecialchars($v['sku']) ?></td>
+                            <td><?= number_format($v['price'], 0, ',', '.') ?> đ</td>
                             <td>
-                                <?= number_format($v['price'],0,',','.') ?> đ
+                                <span class="badge <?= $v['stock'] > 0 ? 'bg-success' : 'bg-danger' ?>">
+                                    <?= $v['stock'] ?>
+                                </span>
                             </td>
-
-                            <td><?= $v['stock'] ?></td>
-
-                            <td>
-                                <?= !empty($v['created_at']) ? date('d/m/Y', strtotime($v['created_at'])) : '' ?>
-                            </td>
-
+                            <td><?= !empty($v['created_at']) ? date('d/m/Y', strtotime($v['created_at'])) : '—' ?></td>
                         </tr>
-
                     <?php endforeach; ?>
                 <?php else: ?>
-
                     <tr>
-                        <td colspan="5" class="text-center">
-                            chưa có biến thể
-                        </td>
+                        <td colspan="5" class="text-center text-muted py-3">Chưa có biến thể</td>
                     </tr>
-
                 <?php endif; ?>
-
             </tbody>
-
         </table>
     </div>
-</div>
-
-<div class="mt-4">
-    <a href="index.php?act=products" class="btn btn-secondary">
-        quay lại
-    </a>
 </div>

@@ -4,14 +4,9 @@ class ProductController
 {
     private $productModel;
 
-    public function __construct()
+    public function __construct($connect)
     {
-        require_once __DIR__ . "/../../Model/Database.php";
         require_once __DIR__ . "/../../Model/Product.php";
-
-        $db = new Database();
-        $connect = $db->connect();
-
         $this->productModel = new Product($connect);
     }
 
@@ -20,13 +15,14 @@ class ProductController
         $id = $_GET['id'] ?? 0;
 
         $product = $this->productModel->getByIdWithCategory($id);
-        $variants = $this->productModel->getVariantsByProductId($id);
-        $relatedProducts = $this->productModel->getRelatedProducts($product['category_id'], $id);
 
         if (!$product) {
             echo "Không tìm thấy sản phẩm";
             return;
         }
+
+        $variants = $this->productModel->getVariantsByProductId($id);
+        $relatedProducts = $this->productModel->getRelatedProducts($product['category_id'], $id);
 
         include "Client/View/Pages/Product/ProductDetail.php";
     }
