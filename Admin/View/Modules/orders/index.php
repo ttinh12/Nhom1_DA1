@@ -38,7 +38,7 @@ $statusLabel = [
                                 <td>
                                     <?= htmlspecialchars($item['name']) ?>
                                     <?php if (!empty($item['user_name']) && $item['user_name'] !== $item['name']): ?>
-                                        <small class="text-muted">(<?= htmlspecialchars($item['user_name']) ?>)</small>
+                                        <!-- <small class="text-muted">(<?= htmlspecialchars($item['user_name']) ?>)</small> -->
                                     <?php endif; ?>
                                 </td>
 

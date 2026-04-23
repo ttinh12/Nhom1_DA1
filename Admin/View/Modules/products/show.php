@@ -2,7 +2,7 @@
 /** @var array $product */
 /** @var array $variants */
 
-$base_url = "/Nhom1_DA1/public/assets/images/";
+$base_url = "../public/assets/images/";
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
