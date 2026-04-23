@@ -15,7 +15,7 @@ $productCtrl = new ProductController($connect);
 
 $page = $_GET['page'] ?? 'home';
 
-// === Xử lý các action không cần header/footer ===
+// xu ly action khong load layout
 switch ($page) {
 
     case 'addtocart':
@@ -33,12 +33,34 @@ switch ($page) {
         }
         header("Location: index.php?page=cart");
         exit;
+
+    case 'updatecart':
+        $key = $_GET['key'] ?? '';
+        $action = $_GET['action'] ?? '';
+
+        if ($key && isset($_SESSION['cart'][$key])) {
+
+            if ($action == 'plus') {
+                $_SESSION['cart'][$key]['quantity']++;
+            }
+
+            if ($action == 'minus') {
+                if ($_SESSION['cart'][$key]['quantity'] > 1) {
+                    $_SESSION['cart'][$key]['quantity']--;
+                } else {
+                    unset($_SESSION['cart'][$key]);
+                }
+            }
+        }
+
+        header("Location: index.php?page=cart");
+        exit;
 }
 
-// === Render header ===
+// load header
 include "Client/View/Layouts/header.php";
 
-// === Render page ===
+// load page
 switch ($page) {
 
     case 'login':
@@ -55,7 +77,15 @@ switch ($page) {
         break;
 
     case 'product':
-        $products = $productModel->getAll();
+        $category_id = $_GET['category'] ?? 0;
+
+        if ($category_id) {
+            $products = $productModel->getByCategory($category_id);
+        } else {
+            $products = $productModel->getAll();
+        }
+
+        $categories = $productModel->getCategories();
         include "Client/View/Pages/product.php";
         break;
 
@@ -93,5 +123,5 @@ switch ($page) {
         break;
 }
 
-// === Render footer ===
+// load footer
 include "Client/View/Layouts/footer.php";

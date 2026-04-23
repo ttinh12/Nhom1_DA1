@@ -89,6 +89,7 @@
 <script src="public/assets/js/jquery.magnific-popup.min.js"></script>
 <script src="public/assets/js/aos.js"></script>
 <script src="public/assets/js/main.js"></script>
+<!-- thêm dòng này -->
 <script src="public/assets/js/product-detail.js"></script>
 </body>
 

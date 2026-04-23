@@ -59,15 +59,29 @@ $total = 0;
 
                                         <td><?= number_format($item['price']) ?> đ</td>
 
-                                        <td><?= $item['quantity'] ?></td>
+                                        <!-- quantity -->
+                                        <td>
+                                            <div class="cart-qty">
+
+                                                <a href="index.php?page=updatecart&key=<?= $key ?>&action=minus"
+                                                   class="btn">−</a>
+
+                                                <input type="text"
+                                                    value="<?= $item['quantity'] ?>"
+                                                    readonly>
+
+                                                <a href="index.php?page=updatecart&key=<?= $key ?>&action=plus"
+                                                   class="btn">+</a>
+
+                                            </div>
+                                        </td>
 
                                         <td><?= number_format($sum) ?> đ</td>
 
                                         <td>
-                                            <!-- NÚT XÓA ĐÃ SỬA -->
                                             <a href="index.php?page=deletecart&key=<?= $key ?>"
-                                                onclick="return confirm('Bạn có chắc muốn xóa?')" 
-                                                class="btn-delete">
+                                               onclick="return confirm('Bạn có chắc muốn xóa?')" 
+                                               class="btn-delete">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>
@@ -95,7 +109,10 @@ $total = 0;
                 <div class="col-md-6 text-right">
                     <?php if (!empty($cart)): ?>
 
-                        <h4>Tổng tiền: <strong><?= number_format($total) ?> đ</strong></h4>
+                        <h4>
+                            Tổng tiền:
+                            <strong><?= number_format($total) ?> đ</strong>
+                        </h4>
 
                         <a href="index.php?page=checkout" class="btn btn-primary">
                             Thanh toán

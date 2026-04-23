@@ -32,7 +32,7 @@ class ProductController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        // chặn chưa đăng nhập
+
         if (!isset($_SESSION['user'])) {
             header("Location: index.php?page=login");
             exit;
@@ -40,7 +40,10 @@ class ProductController
 
         $product_id = $_POST['product_id'] ?? 0;
         $variant_id = $_POST['variant_id'] ?? 0;
-        $qty = $_POST['qty'] ?? 1;
+
+        // ép kiểu qty
+        $qty = isset($_POST['qty']) ? (int)$_POST['qty'] : 1;
+        if ($qty < 1) $qty = 1;
 
         if (!$product_id || !$variant_id) {
             echo "Thiếu dữ liệu";
@@ -63,6 +66,12 @@ class ProductController
             return;
         }
 
+        // check tồn kho
+        if ($qty > $variant['stock']) {
+            echo "Không đủ hàng";
+            return;
+        }
+
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
@@ -70,8 +79,17 @@ class ProductController
         $key = $product_id . '_' . $variant_id;
 
         if (isset($_SESSION['cart'][$key])) {
-            $_SESSION['cart'][$key]['quantity'] += $qty;
+
+            $newQty = $_SESSION['cart'][$key]['quantity'] + $qty;
+
+            if ($newQty > $variant['stock']) {
+                $newQty = $variant['stock'];
+            }
+
+            $_SESSION['cart'][$key]['quantity'] = $newQty;
+
         } else {
+
             $_SESSION['cart'][$key] = [
                 'id' => $product_id,
                 'variant_id' => $variant_id,

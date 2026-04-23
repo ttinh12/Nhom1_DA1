@@ -24,7 +24,7 @@ $admin_url = "/Admin/index.php";
         <li class="menu-header">Cửa hàng</li>
 
         <!-- sản phẩm -->
-        <li class="menu-item <?= in_array($act, ['products','add-product','edit-product']) ? 'active open' : '' ?>">
+        <li class="menu-item <?= in_array($act, ['products', 'add-product', 'edit-product']) ? 'active open' : '' ?>">
             <a href="#" class="menu-link menu-toggle">
                 <i class="bx bx-box"></i>
                 <div>Sản phẩm</div>
@@ -41,7 +41,8 @@ $admin_url = "/Admin/index.php";
         </li>
 
         <!-- danh mục -->
-        <li class="menu-item <?= in_array($act, ['category','category-create','category-update']) ? 'active open' : '' ?>">
+        <li
+            class="menu-item <?= in_array($act, ['category', 'category-create', 'category-update']) ? 'active open' : '' ?>">
             <a href="#" class="menu-link menu-toggle">
                 <i class="bx bx-category"></i>
                 <div>Danh mục</div>
@@ -58,7 +59,7 @@ $admin_url = "/Admin/index.php";
         </li>
 
         <!-- đơn hàng -->
-        <li class="menu-item <?= in_array($act, ['orders','order-detail']) ? 'active open' : '' ?>">
+        <li class="menu-item <?= in_array($act, ['orders', 'order-detail']) ? 'active open' : '' ?>">
             <a href="#" class="menu-link menu-toggle">
                 <i class="bx bx-cart"></i>
                 <div>Đơn hàng</div>
@@ -67,6 +68,19 @@ $admin_url = "/Admin/index.php";
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="<?= $admin_url ?>?act=orders" class="menu-link">Xem đơn hàng</a>
+                </li>
+            </ul>
+        </li>
+        <!-- người dùng -->
+        <li class="menu-item <?= in_array($act, ['users']) ? 'active open' : '' ?>">
+            <a href="#" class="menu-link menu-toggle">
+                <i class="bx bx-user"></i>
+                <div>Người dùng</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="<?= $admin_url ?>?act=users" class="menu-link">Danh sách người dùng</a>
                 </li>
             </ul>
         </li>

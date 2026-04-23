@@ -146,9 +146,14 @@
         <div class="border p-4 rounded mb-4">
           <h3 class="mb-3 h6 text-uppercase text-black d-block">Danh mục</h3>
           <ul class="list-unstyled mb-0">
-            <li><a href="#">Nam</a></li>
-            <li><a href="#">Nữ</a></li>
-            <li><a href="#">Giày Dép</a></li>
+            <?php foreach ($categories as $c): ?>
+              <li>
+                <a href="index.php?page=product&category=<?= $c['id'] ?>"
+                  class="<?= (isset($_GET['category']) && $_GET['category'] == $c['id']) ? 'text-danger font-weight-bold' : '' ?>">
+                  <?= $c['name'] ?>
+                </a>
+              </li>
+            <?php endforeach; ?>
           </ul>
         </div>
 

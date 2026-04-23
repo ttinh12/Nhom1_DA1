@@ -1,7 +1,7 @@
 <?php
 class User
 {
-    private $table = 'users'; // đổi lại
+    private $table = 'users';
     private $_connect;
 
     public function __construct($connect)
@@ -11,7 +11,7 @@ class User
 
     public function getAll()
     {
-        $sql = "SELECT * FROM $this->table";
+        $sql = "SELECT * FROM $this->table ORDER BY id DESC";
         $sth = $this->_connect->prepare($sql);
         $sth->execute();
         return $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -22,10 +22,9 @@ class User
         $sql = "SELECT * FROM $this->table WHERE id = :id";
         $sth = $this->_connect->prepare($sql);
         $sth->execute(['id' => $id]);
-        return $sth->fetch(PDO::FETCH_ASSOC); // sửa ở đây
+        return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
-    // kiểm tra email tồn tại
     public function findByEmail($email)
     {
         $sql = "SELECT * FROM $this->table WHERE email = :email";
@@ -34,18 +33,16 @@ class User
         return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
-    // đăng ký
     public function register($name, $email, $password)
     {
-        // check email tồn tại
         if ($this->findByEmail($email)) {
             return "Email đã tồn tại";
         }
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO $this->table (name, email, password)
-                VALUES (:name, :email, :password)";
+        $sql = "INSERT INTO $this->table (name, email, password, role, created_at)
+                VALUES (:name, :email, :password, 'user', NOW())";
 
         $sth = $this->_connect->prepare($sql);
 
@@ -58,7 +55,6 @@ class User
         return $result ? true : "Đăng ký thất bại";
     }
 
-    // đăng nhập
     public function login($email, $password)
     {
         $user = $this->findByEmail($email);
@@ -72,5 +68,49 @@ class User
         }
 
         return $user;
+    }
+
+    public function create($name, $email, $password, $role = 'user')
+    {
+        if ($this->findByEmail($email)) {
+            return "Email đã tồn tại";
+        }
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO $this->table (name, email, password, role, created_at)
+                VALUES (:name, :email, :password, :role, NOW())";
+
+        $sth = $this->_connect->prepare($sql);
+
+        return $sth->execute([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'role' => $role
+        ]);
+    }
+
+    public function update($id, $name, $email, $role)
+    {
+        $sql = "UPDATE $this->table 
+                SET name = :name, email = :email, role = :role
+                WHERE id = :id";
+
+        $sth = $this->_connect->prepare($sql);
+
+        return $sth->execute([
+            'id' => $id,
+            'name' => $name,
+            'email' => $email,
+            'role' => $role
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM $this->table WHERE id = :id";
+        $sth = $this->_connect->prepare($sql);
+        return $sth->execute(['id' => $id]);
     }
 }

@@ -1514,3 +1514,40 @@ a:hover {
     max-width: 800px;
     margin: auto;
 }
+.cart-qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 110px;
+  margin: auto;
+}
+
+.cart-qty .btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: #f5f5f5;
+  color: #333;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.cart-qty .btn:hover {
+  background: #ee4266;
+  color: #fff;
+}
+
+.cart-qty input {
+  width: 40px;
+  height: 35px;
+  border: none;
+  text-align: center;
+  font-weight: 600;
+  background: #fff;
+}

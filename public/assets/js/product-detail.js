@@ -1,24 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const radios = document.querySelectorAll('input[name="variant"]');
+    const radios = document.querySelectorAll('input[name="variant_id"]');
     const priceEl = document.getElementById('price');
     const imageEl = document.getElementById('main-image');
     const stockEl = document.getElementById('stock');
     const qtyEl = document.getElementById('qty');
-    const form = document.querySelector("form");
+    const form = document.getElementById('addToCartForm');
 
     function updateVariant(radio) {
-        const price = radio.dataset.price;
-        const image = radio.dataset.image;
-        const stock = parseInt(radio.dataset.stock);
+        const price = radio.dataset.price || 0;
+        const image = radio.dataset.image || '';
+        const stock = parseInt(radio.dataset.stock) || 0;
 
-        // giá
-        priceEl.innerText = Number(price).toLocaleString('vi-VN') + ' đ';
+        if (priceEl) {
+            priceEl.innerText = Number(price).toLocaleString('vi-VN') + ' đ';
+        }
 
-        // ảnh
-        imageEl.src = "public/assets/images/" + image;
+        if (imageEl && image) {
+            imageEl.src = "public/assets/images/" + image;
+        }
 
-        // highlight thumb
         document.querySelectorAll('.thumb').forEach(t => {
             t.classList.remove('active-thumb');
             if (t.src.includes(image)) {
@@ -26,70 +27,80 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // tồn kho
-        if (stock > 0) {
-            stockEl.innerText = "Còn hàng: " + stock;
-            stockEl.classList.remove('text-danger');
-            stockEl.classList.add('text-success');
-        } else {
-            stockEl.innerText = "Hết hàng";
-            stockEl.classList.remove('text-success');
-            stockEl.classList.add('text-danger');
+        if (stockEl) {
+            if (stock > 0) {
+                stockEl.innerText = "Còn hàng: " + stock;
+                stockEl.classList.remove('text-danger');
+                stockEl.classList.add('text-success');
+            } else {
+                stockEl.innerText = "Hết hàng";
+                stockEl.classList.remove('text-success');
+                stockEl.classList.add('text-danger');
+            }
         }
 
-        // giới hạn qty
-        if (qtyEl.value > stock) {
+        if (qtyEl && qtyEl.value > stock) {
             qtyEl.value = stock > 0 ? stock : 1;
         }
     }
 
-    // load mặc định
-    const checked = document.querySelector('input[name="variant"]:checked');
+    const checked = document.querySelector('input[name="variant_id"]:checked');
     if (checked) updateVariant(checked);
 
-    // change variant
     radios.forEach(r => {
         r.addEventListener('change', function () {
             updateVariant(this);
         });
     });
 
-    // + -
-    document.getElementById('plus').onclick = () => {
-        let current = parseInt(qtyEl.value);
-        let stock = parseInt(document.querySelector('input[name="variant"]:checked').dataset.stock);
+    const plus = document.getElementById('plus');
+    const minus = document.getElementById('minus');
 
-        if (current < stock) qtyEl.value = current + 1;
-    };
+    if (plus) {
+        plus.onclick = function () {
+            const current = parseInt(qtyEl.value) || 1;
+            const selected = document.querySelector('input[name="variant_id"]:checked');
+            const stock = selected ? parseInt(selected.dataset.stock) : 0;
 
-    document.getElementById('minus').onclick = () => {
-        let current = parseInt(qtyEl.value);
-        if (current > 1) qtyEl.value = current - 1;
-    };
+            if (current < stock) {
+                qtyEl.value = current + 1;
+            }
+        };
+    }
 
-    // ✅ SUBMIT FORM (DUY NHẤT 1 CHỖ)
-    form.addEventListener("submit", function (e) {
+    if (minus) {
+        minus.onclick = function () {
+            const current = parseInt(qtyEl.value) || 1;
+            if (current > 1) {
+                qtyEl.value = current - 1;
+            }
+        };
+    }
 
-        const selected = document.querySelector('input[name="variant"]:checked');
+    if (form) {
+        form.addEventListener("submit", function (e) {
 
-        if (!selected) {
-            alert("Vui lòng chọn biến thể");
-            e.preventDefault();
-            return;
-        }
+            const selected = document.querySelector('input[name="variant_id"]:checked');
 
-        document.getElementById('variantInput').value = selected.value;
-        document.getElementById('qtyInput').value = qtyEl.value;
-    });
+            if (!selected) {
+                alert("Vui lòng chọn biến thể");
+                e.preventDefault();
+            }
+        });
+    }
 
 });
 
-// GLOBAL
 function changeImage(el) {
     const main = document.getElementById('main-image');
 
-    main.src = el.src;
+    if (main) {
+        main.src = el.src;
+    }
 
-    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active-thumb'));
+    document.querySelectorAll('.thumb').forEach(t => {
+        t.classList.remove('active-thumb');
+    });
+
     el.classList.add('active-thumb');
 }
