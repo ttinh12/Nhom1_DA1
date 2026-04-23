@@ -20,7 +20,7 @@ class ProductController
             echo "Không tìm thấy sản phẩm";
             return;
         }
-
+        // lấy dữ liệu liên quan đến biến thể
         $variants = $this->productModel->getVariantsByProductId($id);
         $relatedProducts = $this->productModel->getRelatedProducts($product['category_id'], $id);
 
@@ -32,7 +32,7 @@ class ProductController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-
+        //ghi chú này là hàm không cho người dùng thêm giỏ hàng khi chưa đăng nhập
         if (!isset($_SESSION['user'])) {
             header("Location: index.php?page=login");
             exit;
@@ -49,7 +49,7 @@ class ProductController
             echo "Thiếu dữ liệu";
             return;
         }
-
+        //gọi database lấy dữ liệu từ model
         $product = $this->productModel->getById($product_id);
         $variants = $this->productModel->getVariantsByProductId($product_id);
 

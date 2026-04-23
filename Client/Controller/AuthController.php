@@ -60,7 +60,7 @@ class AuthController
             } elseif ($password !== $confirm) {
                 $error = "Mật khẩu nhập lại không khớp";
             } else {
-
+                // gọi từ model 
                 $result = $this->user->register($name, $email, $password);
 
                 if ($result === true) {

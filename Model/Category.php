@@ -22,7 +22,7 @@ class Category
         $sql = "SELECT * FROM $this->table WHERE id = :id";
         $stmt = $this->_connect->prepare($sql);
         $stmt->execute(['id'=> $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC); // ✅ sửa ở đây
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
 
     /**
