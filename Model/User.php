@@ -41,8 +41,8 @@ class User
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO $this->table (name, email, password, role, created_at)
-                VALUES (:name, :email, :password, 'user', NOW())";
+        $sql = "INSERT INTO $this->table (name, email, password)
+                VALUES (:name, :email, :password)";
 
         $sth = $this->_connect->prepare($sql);
 
@@ -70,7 +70,7 @@ class User
         return $user;
     }
 
-    public function create($name, $email, $password, $role = 'user')
+    public function create($name, $email, $password)
     {
         if ($this->findByEmail($email)) {
             return "Email đã tồn tại";
@@ -78,23 +78,22 @@ class User
 
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO $this->table (name, email, password, role, created_at)
-                VALUES (:name, :email, :password, :role, NOW())";
+        $sql = "INSERT INTO $this->table (name, email, password)
+                VALUES (:name, :email, :password)";
 
         $sth = $this->_connect->prepare($sql);
 
         return $sth->execute([
             'name' => $name,
             'email' => $email,
-            'password' => $password,
-            'role' => $role
+            'password' => $password
         ]);
     }
 
-    public function update($id, $name, $email, $role)
+    public function update($id, $name, $email)
     {
         $sql = "UPDATE $this->table 
-                SET name = :name, email = :email, role = :role
+                SET name = :name, email = :email
                 WHERE id = :id";
 
         $sth = $this->_connect->prepare($sql);
@@ -102,8 +101,7 @@ class User
         return $sth->execute([
             'id' => $id,
             'name' => $name,
-            'email' => $email,
-            'role' => $role
+            'email' => $email
         ]);
     }
 
